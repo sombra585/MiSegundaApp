@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
+
 import {
   View,
   Text,
@@ -9,8 +10,13 @@ import {
 export default function Resultado() {
   const router = useRouter();
 
-  const { nombre, correo, telefono, ciudad } =
-    useLocalSearchParams();
+  const {
+    nombre,
+    correo,
+    telefono,
+    ciudad,
+    acompanante,
+  } = useLocalSearchParams();
 
   return (
     <View style={styles.container}>
@@ -34,6 +40,9 @@ export default function Resultado() {
 
         <Text style={styles.label}>Ciudad de origen</Text>
         <Text style={styles.valor}>{ciudad}</Text>
+
+        <Text style={styles.label}>Acompañante turístico</Text>
+        <Text style={styles.valor}>{acompanante}</Text>
       </View>
 
       <Pressable
@@ -109,3 +118,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+

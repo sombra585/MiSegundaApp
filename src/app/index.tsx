@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+
 import {
   Image,
   Pressable,
@@ -7,31 +8,6 @@ import {
   Text,
   View,
 } from "react-native";
-
-function OpcionMenu({
-  icono,
-  titulo,
-  descripcion,
-  onPress,
-}: {
-  icono: string;
-  titulo: string;
-  descripcion: string;
-  onPress: () => void;
-}) {
-  return (
-    <Pressable style={styles.opcion} onPress={onPress}>
-      <Text style={styles.icono}>{icono}</Text>
-
-      <View style={styles.infoOpcion}>
-        <Text style={styles.tituloOpcion}>{titulo}</Text>
-        <Text style={styles.descripcionOpcion}>{descripcion}</Text>
-      </View>
-
-      <Text style={styles.flecha}>›</Text>
-    </Pressable>
-  );
-}
 
 export default function Index() {
   const router = useRouter();
@@ -77,26 +53,40 @@ export default function Index() {
         Explora la aplicación
       </Text>
 
-      <OpcionMenu
-        icono="📝"
-        titulo="Formulario"
-        descripcion="Planifica tu viaje y registra tus preferencias."
-        onPress={() => router.push("/formulario")}
-      />
+      <View style={styles.filaBotones}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.boton,
+            pressed && styles.botonPresionado,
+          ]}
+          onPress={() => router.push("/formulario")}
+        >
+          <Text style={styles.iconoBoton}>📝</Text>
+          <Text style={styles.tituloBoton}>Formulario</Text>
+        </Pressable>
 
-      <OpcionMenu
-        icono="📸"
-        titulo="Destinos turísticos"
-        descripcion="Descubre lugares increíbles de Nariño y Colombia."
-        onPress={() => router.push("/destinos")}
-      />
+        <Pressable
+          style={({ pressed }) => [
+            styles.boton,
+            pressed && styles.botonPresionado,
+          ]}
+          onPress={() => router.push("/destinos")}
+        >
+          <Text style={styles.iconoBoton}>📸</Text>
+          <Text style={styles.tituloBoton}>Destinos</Text>
+        </Pressable>
 
-      <OpcionMenu
-        icono="📍"
-        titulo="Contacto"
-        descripcion="Encuentra información para comunicarte con nosotros."
-        onPress={() => router.push("/contacto")}
-      />
+        <Pressable
+          style={({ pressed }) => [
+            styles.boton,
+            pressed && styles.botonPresionado,
+          ]}
+          onPress={() => router.push("/contacto")}
+        >
+          <Text style={styles.iconoBoton}>📍</Text>
+          <Text style={styles.tituloBoton}>Contacto</Text>
+        </Pressable>
+      </View>
 
       <View style={styles.recomendacion}>
         <Text style={styles.iconoRecomendacion}>🌄</Text>
@@ -195,42 +185,41 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
-  opcion: {
+  /* FILA DE BOTONES */
+  filaBotones: {
     flexDirection: "row",
-    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 10,
+    marginBottom: 20,
+  },
+
+  /* BOTÓN */
+  boton: {
+    flex: 1,
     backgroundColor: "#FFFFFF",
     borderRadius: 18,
-    padding: 16,
-    marginBottom: 12,
+    paddingVertical: 18,
+    paddingHorizontal: 8,
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 3,
   },
 
-  icono: {
-    fontSize: 30,
-    marginRight: 14,
+  botonPresionado: {
+    opacity: 0.7,
+    transform: [{ scale: 0.97 }],
   },
 
-  infoOpcion: {
-    flex: 1,
+  iconoBoton: {
+    fontSize: 28,
+    marginBottom: 8,
   },
 
-  tituloOpcion: {
-    fontSize: 17,
+  tituloBoton: {
+    fontSize: 14,
     fontWeight: "bold",
     color: "#2E7D32",
-    marginBottom: 3,
-  },
-
-  descripcionOpcion: {
-    fontSize: 13,
-    color: "#689F38",
-    lineHeight: 18,
-  },
-
-  flecha: {
-    fontSize: 28,
-    color: "#81C784",
-    marginLeft: 8,
+    textAlign: "center",
   },
 
   recomendacion: {

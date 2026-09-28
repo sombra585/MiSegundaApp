@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useRouter } from "expo-router";
+
 import {
+  ActivityIndicator,
   ScrollView,
   Text,
   TextInput,
   Pressable,
   StyleSheet,
   View,
+  Switch,
 } from "react-native";
 
 export default function Formulario() {
@@ -17,21 +20,31 @@ export default function Formulario() {
   const [telefono, setTelefono] = useState("");
   const [ciudad, setCiudad] = useState("");
 
+  const [acompanante, setAcompanante] = useState(false);
+  const [cargando, setCargando] = useState(false);
+
   const enviar = () => {
     if (!nombre || !correo || !telefono || !ciudad) {
       alert("Todos los campos son obligatorios");
       return;
     }
 
-    router.push({
-      pathname: "/resultado",
-      params: {
-        nombre,
-        correo,
-        telefono,
-        ciudad,
-      },
-    });
+    setCargando(true);
+
+    setTimeout(() => {
+      router.push({
+        pathname: "/resultado",
+        params: {
+          nombre,
+          correo,
+          telefono,
+          ciudad,
+          acompanante: acompanante ? "Sí" : "No",
+        },
+      });
+
+      setCargando(false);
+    }, 1000);
   };
 
   return (
@@ -44,6 +57,7 @@ export default function Formulario() {
 
       <View style={styles.card}>
         <Text style={styles.label}>Nombre</Text>
+
         <TextInput
           style={styles.input}
           placeholder="Ingrese su nombre"
@@ -52,6 +66,7 @@ export default function Formulario() {
         />
 
         <Text style={styles.label}>Correo electrónico</Text>
+
         <TextInput
           style={styles.input}
           placeholder="correo@dominio.com"
@@ -62,6 +77,7 @@ export default function Formulario() {
         />
 
         <Text style={styles.label}>Teléfono</Text>
+
         <TextInput
           style={styles.input}
           placeholder="3001234567"
@@ -71,6 +87,7 @@ export default function Formulario() {
         />
 
         <Text style={styles.label}>Ciudad de origen</Text>
+
         <TextInput
           style={styles.input}
           placeholder="Ej: Pasto"
@@ -78,8 +95,36 @@ export default function Formulario() {
           onChangeText={setCiudad}
         />
 
+        <View style={styles.switchContainer}>
+          <View style={styles.switchInfo}>
+            <Text style={styles.switchTitulo}>
+              ¿Desea un acompañante turístico?
+            </Text>
+
+            <Text style={styles.switchDescripcion}>
+              Seleccione si desea contar con un guía durante su viaje.
+            </Text>
+          </View>
+
+          <Switch
+            value={acompanante}
+            onValueChange={setAcompanante}
+            trackColor={{
+              false: "#C8E6C9",
+              true: "#81C784",
+            }}
+            thumbColor={acompanante ? "#2E7D32" : "#F1F1F1"}
+          />
+        </View>
+
         <Pressable style={styles.boton} onPress={enviar}>
-          <Text style={styles.botonTexto}>Comenzar mi viaje</Text>
+          {cargando ? (
+            <ActivityIndicator color="#FFFFFF" />
+          ) : (
+            <Text style={styles.botonTexto}>
+              Comenzar mi viaje
+            </Text>
+          )}
         </Pressable>
       </View>
     </ScrollView>
@@ -132,6 +177,31 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
 
+  switchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 18,
+    marginTop: 4,
+  },
+
+  switchInfo: {
+    flex: 1,
+    marginRight: 10,
+  },
+
+  switchTitulo: {
+    color: "#33691E",
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+
+  switchDescripcion: {
+    color: "#689F38",
+    fontSize: 12,
+    lineHeight: 17,
+  },
+
   boton: {
     backgroundColor: "#2E7D32",
     paddingVertical: 14,
@@ -146,3 +216,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+

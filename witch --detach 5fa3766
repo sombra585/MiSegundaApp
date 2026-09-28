@@ -1,0 +1,18 @@
+[33mcommit 5fa376626a189d7f29e85e97f150c0a7f9c9394f[m
+Author: camilo <brayansalazar0064@gmail.com>
+Date:   Tue Sep 15 11:50:10 2026 -0500
+
+    Organiza navegación y pantallas de turismo
+
+ assets/img/cocha.jpg   | Bin [31m0[m -> [32m110840[m bytes
+ assets/img/lajas.jpg   | Bin [31m0[m -> [32m83132[m bytes
+ assets/img/turismo.jpg | Bin [31m0[m -> [32m336724[m bytes
+ src/app/_layout.tsx    |  75 [32m++++++++[m[31m---[m
+ src/app/contacto.tsx   |  87 [32m+++++++++++++[m
+ src/app/destinos.tsx   | 115 [32m+++++++++++++++++[m
+ src/app/explore.tsx    | 180 [31m--------------------------[m
+ src/app/formulario.tsx | 148 [32m++++++++++++++++++++++[m
+ src/app/imagenes.tsx   |  84 [32m+++++++++++++[m
+ src/app/index.tsx      | 336 [32m+++++++++++++++++++++++++++++++++++++[m[31m------------[m
+ src/app/resultado.tsx  | 111 [32m++++++++++++++++[m
+ 11 files changed, 862 insertions(+), 274 deletions(-)
