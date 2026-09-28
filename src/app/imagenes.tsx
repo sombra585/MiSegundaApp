@@ -46,7 +46,7 @@ export default function Imagenes() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: "#F1F8E9",
+    backgroundColor: "#F7F4EE",
     padding: 20,
   },
 
@@ -54,13 +54,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#1B5E20",
+    color: "#143C32",
     marginBottom: 8,
   },
 
   subtitulo: {
     textAlign: "center",
-    color: "#558B2F",
+    color: "#5F7067",
     fontSize: 14,
     lineHeight: 20,
     marginBottom: 25,
@@ -71,10 +71,12 @@ const styles = StyleSheet.create({
   },
 
   imagenContainer: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFFDF9",
     borderRadius: 20,
     overflow: "hidden",
-    elevation: 4,
+    borderWidth: 1,
+    borderColor: "#E6DED2",
+    elevation: 2,
   },
 
   imagen: {

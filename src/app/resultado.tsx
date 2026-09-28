@@ -1,15 +1,15 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
-  View,
-  Text,
   Pressable,
   StyleSheet,
+  Text,
+  View,
 } from "react-native";
 
 export default function Resultado() {
   const router = useRouter();
 
-  const { nombre, correo, telefono, ciudad } =
+  const { id, nombre, correo, telefono, ciudad, destinoFavorito, tipoPreparacion } =
     useLocalSearchParams();
 
   return (
@@ -23,6 +23,8 @@ export default function Resultado() {
       </Text>
 
       <View style={styles.card}>
+        <Text style={styles.registro}>Registro #{String(id ?? "")}</Text>
+
         <Text style={styles.label}>Viajero</Text>
         <Text style={styles.valor}>{nombre}</Text>
 
@@ -34,13 +36,23 @@ export default function Resultado() {
 
         <Text style={styles.label}>Ciudad de origen</Text>
         <Text style={styles.valor}>{ciudad}</Text>
+
+        <Text style={styles.label}>Destino favorito</Text>
+        <Text style={styles.valor}>{destinoFavorito}</Text>
+
+        <Text style={styles.label}>Tipo de preparación</Text>
+        <Text style={styles.valor}>{tipoPreparacion}</Text>
       </View>
 
       <Pressable
         style={styles.boton}
-        onPress={() => router.replace("/")}
+        onPress={() => router.push("/registros")}
       >
-        <Text style={styles.botonTexto}>Volver al inicio</Text>
+        <Text style={styles.botonTexto}>Ver viajeros registrados</Text>
+      </Pressable>
+
+      <Pressable style={styles.botonSecundario} onPress={() => router.replace("/")}>
+        <Text style={styles.botonSecundarioTexto}>Volver al inicio</Text>
       </Pressable>
     </View>
   );
@@ -49,7 +61,7 @@ export default function Resultado() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F1F8E9",
+    backgroundColor: "#F7F4EE",
     justifyContent: "center",
     padding: 20,
   },
@@ -63,49 +75,66 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 29,
     fontWeight: "bold",
-    color: "#1B5E20",
+    color: "#143C32",
     textAlign: "center",
   },
 
   subtitulo: {
-    color: "#558B2F",
+    color: "#5F7067",
     textAlign: "center",
     marginBottom: 22,
     lineHeight: 20,
   },
 
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFFDF9",
     padding: 20,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#C8E6C9",
+    borderColor: "#E6DED2",
     marginBottom: 18,
     elevation: 3,
   },
 
+  registro: {
+    color: "#A06C4B",
+    fontSize: 13,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+
   label: {
-    color: "#689F38",
+    color: "#A06C4B",
     fontSize: 13,
     marginTop: 8,
   },
 
   valor: {
-    color: "#1B5E20",
+    color: "#143C32",
     fontSize: 17,
     fontWeight: "600",
     marginBottom: 8,
   },
 
   boton: {
-    backgroundColor: "#2E7D32",
+    backgroundColor: "#286052",
     padding: 14,
     borderRadius: 13,
     alignItems: "center",
   },
 
   botonTexto: {
-    color: "#FFFFFF",
+    color: "#FFFDF9",
+    fontWeight: "bold",
+  },
+
+  botonSecundario: {
+    alignItems: "center",
+    marginTop: 14,
+  },
+
+  botonSecundarioTexto: {
+    color: "#286052",
     fontWeight: "bold",
   },
 });

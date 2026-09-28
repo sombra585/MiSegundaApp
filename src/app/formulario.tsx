@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
+  Pressable,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
-  Pressable,
-  StyleSheet,
   View,
 } from "react-native";
+import { supabase } from "../lib/supabase";
 
 export default function Formulario() {
   const router = useRouter();
@@ -16,22 +19,70 @@ export default function Formulario() {
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [ciudad, setCiudad] = useState("");
+  const [destinoFavorito, setDestinoFavorito] = useState("");
+  const [tipoPreparacion, setTipoPreparacion] = useState("");
+  const [guardando, setGuardando] = useState(false);
 
-  const enviar = () => {
-    if (!nombre || !correo || !telefono || !ciudad) {
-      alert("Todos los campos son obligatorios");
+  const guardar = async () => {
+    if (
+      !nombre.trim() ||
+      !correo.trim() ||
+      !telefono.trim() ||
+      !ciudad.trim() ||
+      !destinoFavorito.trim() ||
+      !tipoPreparacion.trim()
+    ) {
+      Alert.alert("Información incompleta", "Todos los campos son obligatorios.");
       return;
     }
 
-    router.push({
-      pathname: "/resultado",
-      params: {
-        nombre,
-        correo,
-        telefono,
-        ciudad,
-      },
-    });
+    try {
+      setGuardando(true);
+
+      const { data, error } = await supabase
+        .from("usuarios_viaje")
+        .insert([
+          {
+            nombre: nombre.trim(),
+            correo: correo.trim(),
+            telefono: telefono.trim(),
+            ciudad: ciudad.trim(),
+            destino_favorito: destinoFavorito.trim(),
+            tipo_experiencia: tipoPreparacion.trim(),
+          },
+        ])
+        .select()
+        .single();
+
+      if (error) {
+        console.log("Error Supabase:", error);
+        Alert.alert("No se pudo guardar", error.message);
+        return;
+      }
+
+      if (!data) {
+        Alert.alert("No se pudo guardar", "Supabase no devolvió el registro.");
+        return;
+      }
+
+      router.push({
+        pathname: "/resultado",
+        params: {
+          id: String(data.id),
+          nombre: data.nombre,
+          correo: data.correo,
+          telefono: data.telefono,
+          ciudad: data.ciudad,
+          destinoFavorito: data.destino_favorito,
+          tipoPreparacion: data.tipo_experiencia,
+        },
+      });
+    } catch (error) {
+      console.log("Error inesperado:", error);
+      Alert.alert("Error de conexión", "No fue posible guardar la información.");
+    } finally {
+      setGuardando(false);
+    }
   };
 
   return (
@@ -78,8 +129,32 @@ export default function Formulario() {
           onChangeText={setCiudad}
         />
 
-        <Pressable style={styles.boton} onPress={enviar}>
-          <Text style={styles.botonTexto}>Comenzar mi viaje</Text>
+        <Text style={styles.label}>Destino favorito</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Ej: Laguna de La Cocha"
+          value={destinoFavorito}
+          onChangeText={setDestinoFavorito}
+        />
+
+        <Text style={styles.label}>Tipo de preparación</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Ej: Plan de aventura"
+          value={tipoPreparacion}
+          onChangeText={setTipoPreparacion}
+        />
+
+        <Pressable
+          style={[styles.boton, guardando && styles.botonDeshabilitado]}
+          onPress={guardar}
+          disabled={guardando}
+        >
+          {guardando ? (
+            <ActivityIndicator color="#FFFFFF" />
+          ) : (
+            <Text style={styles.botonTexto}>Guardar mi registro</Text>
+          )}
         </Pressable>
       </View>
     </ScrollView>
@@ -89,7 +164,7 @@ export default function Formulario() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: "#F1F8E9",
+    backgroundColor: "#F7F4EE",
     padding: 20,
     justifyContent: "center",
   },
@@ -97,51 +172,55 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#1B5E20",
+    color: "#143C32",
     textAlign: "center",
   },
 
   subtitulo: {
-    color: "#558B2F",
+    color: "#5F7067",
     textAlign: "center",
     marginBottom: 20,
     lineHeight: 21,
   },
 
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFFDF9",
     padding: 20,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#C8E6C9",
+    borderColor: "#E6DED2",
     elevation: 3,
   },
 
   label: {
-    color: "#33691E",
+    color: "#A06C4B",
     fontWeight: "600",
     marginBottom: 6,
   },
 
   input: {
-    backgroundColor: "#F9FFF7",
+    backgroundColor: "#FBF9F4",
     borderWidth: 1,
-    borderColor: "#A5D6A7",
+    borderColor: "#D9E1D8",
     borderRadius: 13,
     padding: 12,
     marginBottom: 14,
   },
 
   boton: {
-    backgroundColor: "#2E7D32",
+    backgroundColor: "#286052",
     paddingVertical: 14,
     borderRadius: 13,
     alignItems: "center",
     marginTop: 4,
   },
 
+  botonDeshabilitado: {
+    opacity: 0.7,
+  },
+
   botonTexto: {
-    color: "#FFFFFF",
+    color: "#FFFDF9",
     fontWeight: "bold",
     fontSize: 15,
   },

@@ -5,17 +5,22 @@ export default function Layout() {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#2E7D32",
+          backgroundColor: "#143C32",
         },
 
-        headerTintColor: "#FFFFFF",
+        headerTintColor: "#FFFDF9",
+
+        headerShadowVisible: false,
+
+        headerTitleAlign: "center",
 
         headerTitleStyle: {
           fontWeight: "bold",
+          fontSize: 17,
         },
 
         contentStyle: {
-          backgroundColor: "#F1F8E9",
+          backgroundColor: "#F7F4EE",
         },
       }}
     >
@@ -37,6 +42,13 @@ export default function Layout() {
         name="resultado"
         options={{
           title: "Datos del viaje",
+        }}
+      />
+
+      <Stack.Screen
+        name="registros"
+        options={{
+          title: "Viajeros registrados",
         }}
       />
 

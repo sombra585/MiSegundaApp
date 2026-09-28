@@ -5,23 +5,28 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View,
+  View
 } from "react-native";
 
 function OpcionMenu({
-  icono,
   titulo,
   descripcion,
+  numero,
   onPress,
 }: {
-  icono: string;
   titulo: string;
   descripcion: string;
+  numero: string;
   onPress: () => void;
 }) {
   return (
-    <Pressable style={styles.opcion} onPress={onPress}>
-      <Text style={styles.icono}>{icono}</Text>
+    <Pressable
+      style={({ pressed }) => [styles.opcion, pressed && styles.opcionPresionada]}
+      onPress={onPress}
+    >
+      <View style={styles.icono}>
+        <Text style={styles.numeroIcono}>{numero}</Text>
+      </View>
 
       <View style={styles.infoOpcion}>
         <Text style={styles.tituloOpcion}>{titulo}</Text>
@@ -42,23 +47,30 @@ export default function Index() {
         <Image
           source={require("../../assets/img/turismo.jpg")}
           style={styles.imagenHero}
+          resizeMode="cover"
         />
+        <View style={styles.heroSombra} />
+        <View style={styles.heroContenido}>
+          <Text style={styles.heroEtiqueta}>TURISMO COLOMBIA</Text>
+          <Text style={styles.heroTitulo}>Descubre nuevos caminos</Text>
+          <Text style={styles.heroTexto}>Nariño y sus paisajes te esperan.</Text>
+        </View>
       </View>
 
-      <Text style={styles.saludo}>Hola, viajero 👋</Text>
+      <Text style={styles.saludo}>Hola, viajero</Text>
 
       <Text style={styles.tituloPrincipal}>
         Descubre Colombia
       </Text>
 
       <Text style={styles.descripcionPrincipal}>
-        Explora destinos, conoce nuevos lugares y planifica tus próximos
-        viajes por Colombia.
+        Explora destinos, conoce nuevos lugares y planifica tus próximos viajes
+        por Colombia.
       </Text>
 
       <View style={styles.resumen}>
         <View style={styles.dato}>
-          <Text style={styles.numero}>5</Text>
+          <Text style={styles.numero}>4</Text>
           <Text style={styles.etiqueta}>Secciones</Text>
         </View>
 
@@ -73,44 +85,41 @@ export default function Index() {
         </View>
       </View>
 
-      <Text style={styles.tituloSeccion}>
-        Explora la aplicación
-      </Text>
+      <View style={styles.encabezadoSeccion}>
+        <View>
+          <Text style={styles.kickerSeccion}>EXPLORA LA APLICACIÓN</Text>
+          <Text style={styles.tituloSeccion}>Planifica tu experiencia</Text>
+        </View>
+        <Text style={styles.indicadorSeccion}>04</Text>
+      </View>
 
       <OpcionMenu
-        icono="📝"
+        numero="01"
         titulo="Formulario"
         descripcion="Planifica tu viaje y registra tus preferencias."
         onPress={() => router.push("/formulario")}
       />
 
       <OpcionMenu
-        icono="📸"
+        numero="02"
         titulo="Destinos turísticos"
         descripcion="Descubre lugares increíbles de Nariño y Colombia."
         onPress={() => router.push("/destinos")}
       />
 
       <OpcionMenu
-        icono="📍"
+        numero="03"
         titulo="Contacto"
         descripcion="Encuentra información para comunicarte con nosotros."
         onPress={() => router.push("/contacto")}
       />
 
-      <View style={styles.recomendacion}>
-        <Text style={styles.iconoRecomendacion}>🌄</Text>
-
-        <View style={styles.textoRecomendacion}>
-          <Text style={styles.tituloRecomendacion}>
-            Destino recomendado
-          </Text>
-
-          <Text style={styles.descripcionRecomendacion}>
-            Colombia te espera con paisajes naturales, cultura y aventura.
-          </Text>
-        </View>
-      </View>
+      <OpcionMenu
+        numero="04"
+        titulo="Viajeros registrados"
+        descripcion="Consulta las personas que ya están planeando su viaje."
+        onPress={() => router.push("/registros")}
+      />
 
       <Text style={styles.footer}>
         Turismo Colombia · Desarrollo Móvil
@@ -122,18 +131,19 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: "#F1F8E9",
-    padding: 20,
-    paddingTop: 70,
+    backgroundColor: "#F7F4EE",
+    paddingHorizontal: 20,
+    paddingTop: 28,
+    paddingBottom: 28,
   },
 
   hero: {
     width: "100%",
-    height: 220,
-    borderRadius: 22,
+    height: 246,
+    borderRadius: 24,
     overflow: "hidden",
-    marginBottom: 20,
-    elevation: 5,
+    marginBottom: 24,
+    elevation: 6,
   },
 
   imagenHero: {
@@ -141,34 +151,72 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 
+  heroSombra: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(12, 39, 32, 0.42)",
+  },
+
+  heroContenido: {
+    position: "absolute",
+    left: 20,
+    right: 20,
+    bottom: 20,
+  },
+
+  heroEtiqueta: {
+    color: "#F2E8D6",
+    fontSize: 10,
+    fontWeight: "bold",
+    letterSpacing: 1.6,
+    marginBottom: 8,
+  },
+
+  heroTitulo: {
+    color: "#FFFDF9",
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+
+  heroTexto: {
+    color: "#F2E8D6",
+    fontSize: 14,
+  },
+
   saludo: {
-    fontSize: 16,
-    color: "#558B2F",
-    marginBottom: 5,
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#A06C4B",
+    letterSpacing: 1.5,
+    marginBottom: 8,
   },
 
   tituloPrincipal: {
-    fontSize: 32,
+    fontSize: 31,
     fontWeight: "bold",
-    color: "#1B5E20",
-    marginBottom: 8,
+    color: "#143C32",
+    lineHeight: 37,
+    marginBottom: 9,
   },
 
   descripcionPrincipal: {
     fontSize: 15,
-    color: "#558B2F",
-    lineHeight: 22,
-    marginBottom: 20,
+    color: "#5F7067",
+    lineHeight: 23,
+    marginBottom: 22,
   },
 
   resumen: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 18,
-    padding: 18,
-    marginBottom: 25,
-    elevation: 3,
+    backgroundColor: "#FFFDF9",
+    borderRadius: 20,
+    paddingVertical: 18,
+    paddingHorizontal: 8,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: "#E6DED2",
+    elevation: 2,
   },
 
   dato: {
@@ -177,37 +225,77 @@ const styles = StyleSheet.create({
   },
 
   numero: {
-    fontSize: 22,
+    fontSize: 23,
     fontWeight: "bold",
-    color: "#2E7D32",
+    color: "#143C32",
   },
 
   etiqueta: {
-    fontSize: 12,
-    color: "#689F38",
-    marginTop: 4,
+    fontSize: 11,
+    color: "#7A887D",
+    marginTop: 5,
+  },
+
+  encabezadoSeccion: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    marginBottom: 14,
+  },
+
+  kickerSeccion: {
+    color: "#A06C4B",
+    fontSize: 10,
+    fontWeight: "bold",
+    letterSpacing: 1.4,
+    marginBottom: 5,
   },
 
   tituloSeccion: {
-    fontSize: 21,
+    fontSize: 23,
     fontWeight: "bold",
-    color: "#1B5E20",
-    marginBottom: 12,
+    color: "#143C32",
+  },
+
+  indicadorSeccion: {
+    color: "#B08B57",
+    fontSize: 13,
+    fontWeight: "bold",
+    letterSpacing: 1,
   },
 
   opcion: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 18,
-    padding: 16,
+    backgroundColor: "#FFFDF9",
+    borderRadius: 17,
+    padding: 15,
     marginBottom: 12,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: "#E6DED2",
+    elevation: 2,
+  },
+
+  opcionPresionada: {
+    opacity: 0.78,
+    transform: [{ scale: 0.985 }],
   },
 
   icono: {
-    fontSize: 30,
-    marginRight: 14,
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
+    backgroundColor: "#EEF1EA",
+    marginRight: 13,
+  },
+
+  numeroIcono: {
+    color: "#A06C4B",
+    fontSize: 12,
+    fontWeight: "bold",
+    letterSpacing: 0.5,
   },
 
   infoOpcion: {
@@ -215,59 +303,29 @@ const styles = StyleSheet.create({
   },
 
   tituloOpcion: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: "bold",
-    color: "#2E7D32",
+    color: "#286052",
     marginBottom: 3,
   },
 
   descripcionOpcion: {
     fontSize: 13,
-    color: "#689F38",
-    lineHeight: 18,
+    color: "#6E7F74",
+    lineHeight: 19,
   },
 
   flecha: {
-    fontSize: 28,
-    color: "#81C784",
+    fontSize: 27,
+    color: "#B08B57",
     marginLeft: 8,
-  },
-
-  recomendacion: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#E8F5E9",
-    borderRadius: 18,
-    padding: 16,
-    marginTop: 12,
-  },
-
-  iconoRecomendacion: {
-    fontSize: 32,
-    marginRight: 14,
-  },
-
-  textoRecomendacion: {
-    flex: 1,
-  },
-
-  tituloRecomendacion: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#1B5E20",
-    marginBottom: 4,
-  },
-
-  descripcionRecomendacion: {
-    fontSize: 13,
-    color: "#558B2F",
-    lineHeight: 18,
   },
 
   footer: {
     textAlign: "center",
     fontSize: 12,
-    color: "#81C784",
+    color: "#879A8B",
+    letterSpacing: 0.5,
     marginTop: 25,
     marginBottom: 10,
   },
