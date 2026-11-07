@@ -1,5 +1,8 @@
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -7,6 +10,8 @@ import {
   Text,
   View
 } from "react-native";
+import { getAuthErrorMessage } from "../../lib/auth-validation";
+import { supabase } from "../../lib/supabase";
 
 function OpcionMenu({
   titulo,
@@ -40,12 +45,27 @@ function OpcionMenu({
 
 export default function Index() {
   const router = useRouter();
+  const [cerrandoSesion, setCerrandoSesion] = useState(false);
+
+  const cerrarSesion = async () => {
+    setCerrandoSesion(true);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        Alert.alert("No se pudo cerrar sesión", getAuthErrorMessage(error, "logout"));
+      }
+    } catch (error) {
+      Alert.alert("No se pudo cerrar sesión", getAuthErrorMessage(error, "logout"));
+    } finally {
+      setCerrandoSesion(false);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.hero}>
         <Image
-          source={require("../../assets/img/turismo.jpg")}
+          source={require("../../../assets/img/turismo.jpg")}
           style={styles.imagenHero}
           resizeMode="cover"
         />
@@ -124,6 +144,18 @@ export default function Index() {
       <Text style={styles.footer}>
         Turismo Colombia · Desarrollo Móvil
       </Text>
+
+      <Pressable
+        style={[styles.botonCerrar, cerrandoSesion && styles.botonDeshabilitado]}
+        onPress={cerrarSesion}
+        disabled={cerrandoSesion}
+      >
+        {cerrandoSesion ? (
+          <ActivityIndicator color="#FFFDF9" />
+        ) : (
+          <Text style={styles.textoCerrar}>Cerrar sesión</Text>
+        )}
+      </Pressable>
     </ScrollView>
   );
 }
@@ -328,5 +360,19 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     marginTop: 25,
     marginBottom: 10,
+  },
+  botonCerrar: {
+    backgroundColor: "#8A3D32",
+    paddingVertical: 14,
+    borderRadius: 13,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  botonDeshabilitado: {
+    opacity: 0.7,
+  },
+  textoCerrar: {
+    color: "#FFFDF9",
+    fontWeight: "bold",
   },
 });

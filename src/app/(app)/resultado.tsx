@@ -51,7 +51,10 @@ export default function Resultado() {
         <Text style={styles.botonTexto}>Ver viajeros registrados</Text>
       </Pressable>
 
-      <Pressable style={styles.botonSecundario} onPress={() => router.replace("/")}>
+      <Pressable
+        style={styles.botonSecundario}
+        onPress={() => router.replace("/(app)")}
+      >
         <Text style={styles.botonSecundarioTexto}>Volver al inicio</Text>
       </Pressable>
     </View>

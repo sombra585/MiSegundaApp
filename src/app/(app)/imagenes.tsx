@@ -20,21 +20,21 @@ export default function Imagenes() {
       <View style={styles.galeria}>
         <View style={styles.imagenContainer}>
           <Image
-            source={require("../../assets/img/turismo.jpg")}
+            source={require("../../../assets/img/turismo.jpg")}
             style={styles.imagen}
           />
         </View>
 
         <View style={styles.imagenContainer}>
           <Image
-            source={require("../../assets/img/cocha.jpg")}
+            source={require("../../../assets/img/cocha.jpg")}
             style={styles.imagen}
           />
         </View>
 
         <View style={styles.imagenContainer}>
           <Image
-            source={require("../../assets/img/lajas.jpg")}
+            source={require("../../../assets/img/lajas.jpg")}
             style={styles.imagen}
           />
         </View>

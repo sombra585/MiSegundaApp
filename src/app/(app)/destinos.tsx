@@ -12,7 +12,7 @@ export default function Destinos() {
 
       <View style={styles.card}>
         <View style={styles.imagenContenedor}>
-          <Image source={require("../../assets/img/cocha.jpg")} style={styles.imagen} resizeMode="cover" />
+          <Image source={require("../../../assets/img/cocha.jpg")} style={styles.imagen} resizeMode="cover" />
           <View style={styles.imagenCapa} />
           <Text style={styles.numeroDestino}>01</Text>
         </View>
@@ -28,7 +28,7 @@ export default function Destinos() {
 
       <View style={styles.card}>
         <View style={styles.imagenContenedor}>
-          <Image source={require("../../assets/img/lajas.jpg")} style={styles.imagen} resizeMode="cover" />
+          <Image source={require("../../../assets/img/lajas.jpg")} style={styles.imagen} resizeMode="cover" />
           <View style={styles.imagenCapa} />
           <Text style={styles.numeroDestino}>02</Text>
         </View>
@@ -44,7 +44,7 @@ export default function Destinos() {
 
       <View style={styles.card}>
         <View style={styles.imagenContenedor}>
-          <Image source={require("../../assets/img/lagunaVerde.jpg")} style={styles.imagen} resizeMode="cover" />
+          <Image source={require("../../../assets/img/lagunaVerde.jpg")} style={styles.imagen} resizeMode="cover" />
           <View style={styles.imagenCapa} />
           <Text style={styles.numeroDestino}>03</Text>
         </View>
