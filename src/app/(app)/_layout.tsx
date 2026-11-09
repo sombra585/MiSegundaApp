@@ -72,6 +72,20 @@ export default function Layout() {
           title: "Contáctanos",
         }}
       />
+
+      <Stack.Screen
+        name="detalle"
+        options={{
+          title: "Detalle",
+        }}
+      />
+
+      <Stack.Screen
+        name="catalogo"
+        options={{
+          title: "Catálogo",
+        }}
+      />
     </Stack>
   );
 }

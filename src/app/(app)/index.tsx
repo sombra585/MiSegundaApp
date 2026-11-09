@@ -141,6 +141,20 @@ export default function Index() {
         onPress={() => router.push("/registros")}
       />
 
+      <OpcionMenu
+        numero="05"
+        titulo="Detalle"
+        descripcion="Consulta el detalle."
+        onPress={() => router.push("./detalle")}
+      />
+
+      <OpcionMenu
+        numero="06"
+        titulo="Catálogo"
+        descripcion="Explora el catálogo."
+        onPress={() => router.push("./catalogo")}
+      />
+
       <Text style={styles.footer}>
         Turismo Colombia · Desarrollo Móvil
       </Text>
