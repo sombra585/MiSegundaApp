@@ -152,7 +152,7 @@ export default function Index() {
         numero="06"
         titulo="Catálogo"
         descripcion="Explora el catálogo."
-        onPress={() => router.push("./catalogo")}
+        onPress={() => router.push("/catalogo")}
       />
 
       <Text style={styles.footer}>
