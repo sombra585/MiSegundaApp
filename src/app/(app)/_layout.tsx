@@ -53,13 +53,6 @@ export default function Layout() {
       />
 
       <Stack.Screen
-        name="destinos"
-        options={{
-          title: "Destinos turísticos",
-        }}
-      />
-
-      <Stack.Screen
         name="imagenes"
         options={{
           title: "Galería",
@@ -76,14 +69,28 @@ export default function Layout() {
       <Stack.Screen
         name="detalle"
         options={{
-          title: "Detalle",
+          title: "Detalle del destino",
+        }}
+      />
+
+      <Stack.Screen
+        name="detalle-item"
+        options={{
+          title: "Ficha del destino",
         }}
       />
 
       <Stack.Screen
         name="catalogo"
         options={{
-          title: "Catálogo",
+          title: "Catálogo de destinos",
+        }}
+      />
+
+      <Stack.Screen
+        name="escanear"
+        options={{
+          title: "Escanear código QR",
         }}
       />
     </Stack>

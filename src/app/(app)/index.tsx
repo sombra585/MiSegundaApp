@@ -90,7 +90,7 @@ export default function Index() {
 
       <View style={styles.resumen}>
         <View style={styles.dato}>
-          <Text style={styles.numero}>4</Text>
+          <Text style={styles.numero}>5</Text>
           <Text style={styles.etiqueta}>Secciones</Text>
         </View>
 
@@ -110,7 +110,7 @@ export default function Index() {
           <Text style={styles.kickerSeccion}>EXPLORA LA APLICACIÓN</Text>
           <Text style={styles.tituloSeccion}>Planifica tu experiencia</Text>
         </View>
-        <Text style={styles.indicadorSeccion}>04</Text>
+        <Text style={styles.indicadorSeccion}>05</Text>
       </View>
 
       <OpcionMenu
@@ -122,37 +122,30 @@ export default function Index() {
 
       <OpcionMenu
         numero="02"
-        titulo="Destinos turísticos"
-        descripcion="Descubre lugares increíbles de Nariño y Colombia."
-        onPress={() => router.push("/destinos")}
+        titulo="Catálogo interactivo"
+        descripcion="Consulta nuestros destinos y sus detalles."
+        onPress={() => router.push("/catalogo")}
       />
 
       <OpcionMenu
         numero="03"
+        titulo="Escanear código QR"
+        descripcion="Abre la cámara y consulta un destino."
+        onPress={() => router.push("/escanear")}
+      />
+
+      <OpcionMenu
+        numero="04"
         titulo="Contacto"
         descripcion="Encuentra información para comunicarte con nosotros."
         onPress={() => router.push("/contacto")}
       />
 
       <OpcionMenu
-        numero="04"
+        numero="05"
         titulo="Viajeros registrados"
         descripcion="Consulta las personas que ya están planeando su viaje."
         onPress={() => router.push("/registros")}
-      />
-
-      <OpcionMenu
-        numero="05"
-        titulo="Detalle"
-        descripcion="Consulta el detalle."
-        onPress={() => router.push("./detalle")}
-      />
-
-      <OpcionMenu
-        numero="06"
-        titulo="Catálogo"
-        descripcion="Explora el catálogo."
-        onPress={() => router.push("/catalogo")}
       />
 
       <Text style={styles.footer}>

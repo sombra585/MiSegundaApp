@@ -20,7 +20,10 @@ src/
       formulario.tsx
       resultado.tsx
       registros.tsx
-      destinos.tsx
+      catalogo.tsx
+      detalle.tsx
+      detalle-item.tsx
+      escanear.tsx
       imagenes.tsx
       contacto.tsx
   context/
@@ -59,3 +62,8 @@ La autenticación y los registros de viajeros usan Supabase. Los scripts
 perfiles y políticas RLS; el segundo presupone que la tabla
 `public.usuarios_viaje` ya existe. Ejecútalos desde el SQL Editor del proyecto
 Supabase correspondiente cuando aplique.
+
+El catálogo y el escáner consultan `public.destinos`, que debe tener las
+columnas `codigo`, `titulo`, `descripcion`, `detalle` y `precio`. El valor de
+`codigo` debe ser único. Cada QR almacena únicamente ese código; el escáner lo
+busca en Supabase y abre la ficha correspondiente.
